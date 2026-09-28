@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>推しログ</title>
+<style>
+:root{--bg:#FBF7FF;--card:#fff;--ink:#2A1B3D;--sub:#6E6085;--line:#E6DBF3;--pink:#D62F6B;--cyan:#0F8A9E;--star:#F0A020;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#170F24;--card:#251A38;--ink:#F3ECFF;--sub:#B2A5CA;--line:#3A2C55;--pink:#FF6B9A;--cyan:#4FD1E6;--star:#FFC94D}}
+:root[data-theme="dark"]{--bg:#170F24;--card:#251A38;--ink:#F3ECFF;--sub:#B2A5CA;--line:#3A2C55;--pink:#FF6B9A;--cyan:#4FD1E6;--star:#FFC94D}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:20px 16px 120px}
+h1{font-size:26px;margin:8px 0 2px;letter-spacing:.02em}
+.sub{color:var(--sub);font-size:13px;margin:0 0 14px}
+.oc{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:10px 0}
+.oc.top{border-left:6px solid var(--pink);padding:18px 14px}
+.rk{font-size:34px;font-weight:800;color:var(--sub);min-width:38px;text-align:center;line-height:1}
+.top .rk{font-size:54px;color:var(--pink)}
+.bd{flex:1;min-width:0}
+.bd h2{font-size:17px;margin:0}
+.g{margin:0;color:var(--cyan);font-weight:600;font-size:13px}
+.m{margin:2px 0;color:var(--sub);font-size:12.5px}
+.q{margin:6px 0 0;font-size:13.5px;border-left:3px solid var(--line);padding-left:8px}
+.ac{display:flex;flex-direction:column;gap:4px}
+.ac button{border:1px solid var(--line);background:none;color:var(--sub);border-radius:8px;min-width:32px;height:28px;font-size:12px;padding:0 6px}
+.lc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:10px 0}
+.lc summary{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:14px;cursor:pointer}
+.lc summary::-webkit-details-marker{display:none}
+.d{display:block;color:var(--sub);font-size:12.5px}
+.rt{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;max-width:50%}
+.chips{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.av{width:56px;height:56px;border-radius:50%;background:var(--line);display:grid;place-items:center;overflow:hidden;flex-shrink:0;cursor:pointer;font-weight:800;color:var(--sub);font-size:22px}
+.av img{width:100%;height:100%;object-fit:cover}
+.top .av{width:72px;height:72px}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.pk{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit}
+.pk.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.chip{display:inline-block;background:var(--pink);color:#fff;border-radius:99px;padding:0 10px;font-size:12px}
+.st{display:block;color:var(--star);letter-spacing:1px}
+.dt{padding:0 14px 14px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:8px 0;font-size:13.5px}
+dt{color:var(--sub)}
+dd{margin:0;color:var(--star)}
+.f{display:grid;gap:10px}
+label{display:grid;gap:4px;font-size:13px;color:var(--sub)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;width:100%}
+.btn{border:0;background:var(--pink);color:#fff;font:inherit;font-weight:700;border-radius:12px;padding:12px 18px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;gap:8px;margin-top:8px}
+.add{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:12px;margin:8px 0 14px}
+.add summary{cursor:pointer;font-weight:700}
+.add .f{margin-top:10px}
+.rs{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 12px}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:13.5px}
+.sb button{border:0;background:none;color:var(--line);font-size:26px;padding:0 2px;transition:color .1s}
+.sb button.on{color:var(--star)}
+.empty{color:var(--sub)}
+.lnk{border:0;background:none;color:var(--cyan);font:inherit;text-decoration:underline;padding:0}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line)}
+nav button{flex:1;max-width:170px;border:0;border-radius:14px;padding:10px;font:inherit;background:none;color:var(--sub)}
+nav button.on{background:var(--pink);color:#fff;font-weight:700}
+button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav>
+<button data-v="rank">ランキング</button>
+<button data-v="log">記録一覧</button>
+<button data-v="form">＋ 記録する</button>
+</nav>
+<script>
+const F=["総合","パフォーマンス","歌・演奏","MCやトーク","演出・セット","ファンサービス","会場の見やすさ","グッズ・コスパ","また行きたい度"];
+const KEY="oshilog.v1";
+const R=a=>Object.fromEntries(F.map((k,i)=>[k,a[i]||0]));
+const seed={
+ oshi:[
+  {name:"サンプルボーカルA",group:"サンプルバンドA",since:"3か月",note:"ボーカルの声がすごく良かった"},
+  {name:"サンプルドラムB",group:"サンプルトリオB",since:"1年",note:"ドラムの人、見入ってしまうくらい魅力的だった"},
+  {name:"サンプル子役C",group:"サンプル劇団C",since:"1か月",note:"子役が良かった。将来楽しみ"}],
+ lives:[
+  {id:"s1",date:"2026-08-15",title:"サンプルバンドA ワンマンライブ",venue:"サンプルライブハウス",genre:"ロック",with:"友人K",oshis:["サンプルボーカルA"],oshiNote:"ボーカルの声がすごく良かった",r:R([5,5,5,4,4,5,4,3,5]),moment:"アンコールの1曲目で客席全体が一体になった",memo:"開演前のBGMから世界観が始まっていて期待が高まった"},
+  {id:"s2",date:"2026-09-06",title:"サンプルトリオB Jazz Night",venue:"サンプルジャズクラブ",genre:"ジャズ",with:"一人",oshis:["サンプルドラムB"],oshiNote:"ドラムの人、見入ってしまうくらい魅力的だった",r:R([4,4,5,3,3,3,5,3,4]),moment:"ピアノソロで会場が静まり返った瞬間",memo:"席が近く、演奏者の表情まで見えて贅沢だった"},
+  {id:"s3",date:"2026-09-20",title:"サンプル劇団C 公演",venue:"サンプル小劇場",genre:"演劇",with:"家族",oshis:["サンプル子役C"],oshiNote:"",r:R([4,4,4,0,5,0,3,4,4]),moment:"終盤の照明の切り替え",memo:"子役が良かった。将来楽しみ"}]};
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S.oshi||!S.lives)S=JSON.parse(JSON.stringify(seed));
+S.lives.forEach(l=>{if(!Array.isArray(l.oshis))l.oshis=l.oshi?[l.oshi]:[];delete l.oshi});
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const stars=n=>n?"★".repeat(n)+"☆".repeat(5-n):"–";
+const uid=()=>Math.random().toString(36).slice(2,9);
+const blank=()=>({id:"",date:new Date().toISOString().slice(0,10),title:"",venue:"",genre:"",with:"",oshis:[],oshiNote:"",r:{},moment:"",memo:""});
+let view="rank",draft=null;
+
+function stat(name){
+ const L=S.lives.filter(l=>l.oshis.includes(name));
+ const v=L.map(l=>l.r["総合"]).filter(Boolean);
+ return {n:L.length,avg:v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):null};
+}
+function rankView(){
+ const head=`<h1>推しランキング</h1><p class="sub">▲▼で順位を入れ替え、丸い部分をタップすると写真を追加・変更できます</p>
+ <details class="add"><summary>推しを追加</summary><div class="f">
+ <input id="on" placeholder="名前"><input id="og" placeholder="グループ名"><input id="os" placeholder="推し歴（例：1年）"><input id="ot" placeholder="ひとこと">
+ <label>写真（任意）<input type="file" id="oph" accept="image/*"><span id="opn" class="sub"></span></label>
+ <button class="btn" data-act="addOshi">追加する</button></div></details>`;
+ const list=S.oshi.length?S.oshi.map((o,i)=>{
+  const s=stat(o.name);
+  return `<article class="oc${i===0?" top":""}"><div class="rk">${i+1}</div><label class="av" aria-label="${esc(o.name)}の写真を変更"><input type="file" accept="image/*" data-i="${i}" hidden>${o.photo?`<img src="${o.photo}" alt="">`:`<span>${esc([...o.name][0]||"?")}</span>`}</label><div class="bd"><h2>${esc(o.name)}</h2><p class="g">${esc(o.group)}</p><p class="m">推し歴 ${esc(o.since||"–")} ／ ライブ${s.n}回${s.avg?" ／ 平均 ★"+s.avg:""}</p>${o.note?`<p class="q">${esc(o.note)}</p>`:""}</div><div class="ac"><button data-act="up" data-i="${i}" aria-label="順位を上げる">▲</button><button data-act="dn" data-i="${i}" aria-label="順位を下げる">▼</button><button data-act="delOshi" data-i="${i}" aria-label="削除">✕</button></div></article>`;
+ }).join(""):`<p class="empty">まだ推しがいません。上の「推しを追加」から登録しましょう。</p>`;
+ return head+list+`<p class="sub" style="margin-top:18px">データはこの端末のブラウザに保存されます。<button class="lnk" data-act="clear">サンプルを消して始める</button></p>`;
+}
+function logView(){
+ const L=[...S.lives].sort((a,b)=>b.date.localeCompare(a.date));
+ return `<h1>ライブ記録</h1><p class="sub">${L.length}件</p>`+(L.length?L.map(l=>
+  `<details class="lc"><summary><div><b>${esc(l.title)}</b><span class="d">${esc(l.date)}${l.venue?" ／ "+esc(l.venue):""}</span></div><div class="rt"><div class="chips">${l.oshis.map(n=>`<span class="chip">${esc(n)}</span>`).join("")}</div><span class="st">${stars(l.r["総合"])}</span></div></summary><div class="dt">`
+  +`<p class="m">${[l.genre,l.with&&"同行："+l.with].filter(Boolean).map(esc).join(" ／ ")}</p>`
+  +(l.oshiNote?`<p class="q">${esc(l.oshiNote)}</p>`:"")
+  +`<dl>${F.map(k=>`<dt>${k}</dt><dd>${stars(l.r[k])}</dd>`).join("")}</dl>`
+  +(l.moment?`<p><b>印象に残った瞬間</b><br>${esc(l.moment)}</p>`:"")
+  +(l.memo?`<p><b>感想</b><br>${esc(l.memo)}</p>`:"")
+  +`<div class="row"><button class="btn ghost" data-act="edit" data-id="${l.id}">編集</button><button class="btn ghost" data-act="delLive" data-id="${l.id}">削除</button></div></div></details>`
+ ).join(""):`<p class="empty">まだ記録がありません。「＋ 記録する」から最初のライブを残しましょう。</p>`);
+}
+function formView(){
+ const d=draft;
+ return `<h1>${d.id?"記録を編集":"ライブを記録"}</h1><div class="f">
+ <label>日付<input type="date" id="fd" value="${esc(d.date)}"></label>
+ <label>公演名<input id="ft" value="${esc(d.title)}" placeholder="例：〇〇 ワンマンライブ"></label>
+ <label>会場<input id="fv" value="${esc(d.venue)}"></label>
+ <label>ジャンル<input id="fg" value="${esc(d.genre)}" placeholder="ロック、演劇など"></label>
+ <label>一緒に行った人<input id="fw" value="${esc(d.with)}"></label>
+ <div class="f"><span class="sub" style="margin:0">この日の推し（複数選べます）</span><div class="pick">${S.oshi.length?S.oshi.map(o=>`<button type="button" data-act="tog" data-name="${esc(o.name)}" class="pk${d.oshis.includes(o.name)?" on":""}" aria-pressed="${d.oshis.includes(o.name)}">${esc(o.name)}</button>`).join(""):`<span class="sub">先にランキング画面で推しを登録してください</span>`}</div></div>
+ <label>この日の推しメモ（まとめて）<input id="fn" value="${esc(d.oshiNote)}"></label>
+ <div class="rs">${F.map(k=>`<div class="rr"><span>${k}</span><span class="sb">${[1,2,3,4,5].map(n=>`<button type="button" data-act="star" data-k="${k}" data-n="${n}" class="${(d.r[k]||0)>=n?"on":""}" aria-label="${k} ${n}">★</button>`).join("")}</span></div>`).join("")}</div>
+ <p class="sub">当てはまらない項目は、同じ星をもう一度押すと空欄に戻ります</p>
+ <label>印象に残った曲・瞬間<input id="fm" value="${esc(d.moment)}"></label>
+ <label>感想<textarea id="fx" rows="3">${esc(d.memo)}</textarea></label>
+ <p id="err" class="sub" role="alert"></p>
+ <div class="row"><button class="btn" data-act="saveLive">保存する</button><button class="btn ghost" data-act="cancel">キャンセル</button></div></div>`;
+}
+function render(){
+ $("#app").innerHTML=view==="rank"?rankView():view==="log"?logView():formView();
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+}
+function sync(){
+ if(view!=="form"||!draft)return;
+ const g=id=>{const e=$("#"+id);return e?e.value:""};
+ Object.assign(draft,{date:g("fd"),title:g("ft"),venue:g("fv"),genre:g("fg"),with:g("fw"),oshiNote:g("fn"),moment:g("fm"),memo:g("fx")});
+}
+function arm(b,label,fn){
+ if(b.dataset.arm){fn();return}
+ b.dataset.arm="1";
+ const t=b.textContent;
+ b.textContent=label;
+ setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent=t}},2500);
+}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-v],[data-act]");
+ if(!b)return;
+ if(b.dataset.v){
+  sync();
+  if(b.dataset.v==="form"&&view!=="form")draft=blank();
+  view=b.dataset.v;render();scrollTo(0,0);return;
+ }
+ const a=b.dataset.act,i=+b.dataset.i;
+ if(a==="addOshi"){
+  const n=$("#on").value.trim();if(!n)return;
+  S.oshi.push({name:n,group:$("#og").value.trim(),since:$("#os").value.trim(),note:$("#ot").value.trim(),photo:newPhoto});newPhoto="";
+  save();render();
+ }else if(a==="up"&&i>0){[S.oshi[i-1],S.oshi[i]]=[S.oshi[i],S.oshi[i-1]];save();render()}
+ else if(a==="dn"&&i<S.oshi.length-1){[S.oshi[i+1],S.oshi[i]]=[S.oshi[i],S.oshi[i+1]];save();render()}
+ else if(a==="delOshi")arm(b,"削除？",()=>{S.oshi.splice(i,1);save();render()});
+ else if(a==="clear")arm(b,"本当に全部消す？",()=>{S={oshi:[],lives:[]};save();render()});
+ else if(a==="edit"){draft=JSON.parse(JSON.stringify(S.lives.find(l=>l.id===b.dataset.id)));view="form";render();scrollTo(0,0)}
+ else if(a==="delLive")arm(b,"もう一度で削除",()=>{S.lives=S.lives.filter(l=>l.id!==b.dataset.id);save();render()});
+ else if(a==="tog"){sync();const n=b.dataset.name,x=draft.oshis.indexOf(n);if(x>=0)draft.oshis.splice(x,1);else draft.oshis.push(n);render()}
+ else if(a==="star"){sync();const k=b.dataset.k,n=+b.dataset.n;draft.r[k]=draft.r[k]===n?0:n;render()}
+ else if(a==="saveLive"){
+  sync();
+  if(!draft.title.trim()||!draft.date){$("#err").textContent="日付と公演名を入力してください";return}
+  if(draft.id){S.lives=S.lives.map(l=>l.id===draft.id?draft:l)}else{draft.id=uid();S.lives.push(draft)}
+  save();draft=null;view="log";render();scrollTo(0,0);
+ }else if(a==="cancel"){draft=null;view="log";render()}
+});
+let newPhoto="";
+function shrink(file,cb){
+ const r=new FileReader();
+ r.onload=()=>{const img=new Image();
+  img.onload=()=>{const m=Math.min(img.width,img.height),c=document.createElement("canvas");c.width=c.height=240;
+   c.getContext("2d").drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,240,240);cb(c.toDataURL("image/jpeg",.82))};
+  img.src=r.result};
+ r.readAsDataURL(file);
+}
+document.addEventListener("change",e=>{
+ const t=e.target;
+ if(t.type!=="file"||!t.files[0])return;
+ shrink(t.files[0],d=>{
+  if(t.id==="oph"){newPhoto=d;$("#opn").textContent="写真を選択しました"}
+  else{S.oshi[+t.dataset.i].photo=d;save();render()}
+ });
+});
+render();
+</script>
+</body>
+</html>
